@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- One page, listed by hand. There is no lastmod: it would have to be the
+     deploy date rather than the date the words changed, and a timestamp that
+     moves on every unrelated deploy is a worse signal than none. The registry
+     application at app.gdam.dev publishes its own sitemap; this is not it. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://gdam.dev/</loc>
+	</url>
+</urlset>
