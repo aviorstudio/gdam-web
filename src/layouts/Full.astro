@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'GDAM — Godot Addon Manager',
+	description =
+		'Install, link, remove and publish Godot addons from GitHub release assets, through a small CLI and a public registry. One manifest, no account needed to install.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, 'https://gdam.dev');
+
+// Two entries rather than one. The SoftwareApplication is the tool people are
+// being sent to install; the FAQPage is the questions this page actually
+// answers, and they are the queries that bring anyone here — "godot package
+// manager", "how to install godot addons". Both describe what is on the page,
+// which is the only kind of structured data worth emitting.
+const structuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'SoftwareApplication',
+		name: 'GDAM',
+		alternateName: 'Godot Addon Manager',
+		url: 'https://gdam.dev',
+		applicationCategory: 'DeveloperApplication',
+		operatingSystem: 'Linux, macOS, Windows',
+		description,
+		license: 'https://opensource.org/licenses/MIT',
+		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What is GDAM?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text:
+						'GDAM is a package manager for Godot addons. A small Go CLI installs, links, removes and publishes addons from GitHub release assets, and a public registry records which release each published version points at. It is MIT licensed and ships as a single static binary for Linux, macOS and Windows.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'Do I need an account to install addons?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text:
+						'No. Reads from the registry are public and anonymous, and the CLI ships no credentials of its own. An owner-scoped secret key is only needed to publish, and it can only cut releases for addons that already exist under that owner.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'How does GDAM handle an addon I am developing locally?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text:
+						'gdam link points an addon at a directory on your disk and records that in a separate gdam.link.json file. The published manifest, gdam.json, keeps only addon names and versions, so building against a local checkout never changes what your project ships. gdam unlink puts the installed version back.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'Where does GDAM install addons?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text:
+						'Into res://addons/@owner_repo/, regardless of what the release asset was named. Publishing points a semver version at a GitHub release tag and an asset; that ZIP has the addon files at its root, including plugin.cfg, and GDAM unpacks it into its own naming convention.',
+				},
+			},
+		],
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#f1f5f9" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="GDAM" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+	</head>
+	<body><slot /></body>
+</html>
