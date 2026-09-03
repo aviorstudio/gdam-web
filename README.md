@@ -7,9 +7,9 @@ This is the front door only. The registry application — sign-in, owner pages,
 addon pages, docs — is a separate app served from `app.gdam.dev`, and the
 registry API from `api.gdam.dev`. Nothing here talks to either: there is no
 authentication, no application state, no backend and no runtime environment
-configuration. The page ships no JavaScript, which is why there are no
-integrations in `astro.config.mjs` and why CI fails on a `<script src>` in the
-build output.
+configuration. The page ships no runtime JavaScript, which is why there are no
+integrations in `astro.config.mjs` and why CI permits only the non-executable
+JSON-LD script element and rejects JavaScript assets or external scripts.
 
 ## Commands
 
@@ -26,11 +26,10 @@ Nothing on the page is invented. Everything traceable to the `gdam` and
 `gdam-actions` repositories is listed here so it can be re-checked when either
 changes.
 
-**The terminal frame** is one real session, run end to end against the live
-registry — `init`, two `add`s, a `link`, then `install` — and reproduced
-verbatim. The session is internally consistent on purpose: `gdam install` prints
-two lines rather than three because the third addon is linked, and a linked
-addon has nothing to install.
+**The terminal frame** follows the released v0.0.8 output for `init`, two
+`add`s, a `link`, then `install`. The session is internally consistent on
+purpose: `gdam install` prints two lines rather than three because the third
+addon is linked, and a linked addon has nothing to install.
 
 The only edit is the path prefix. `gdam init` and `gdam link` print absolute
 paths, and the real ones were a scratch directory, so they were re-rooted at
@@ -42,20 +41,20 @@ it is accuracy: `gdam` emits no ANSI codes at all — every line it prints is
 plain text through `fmt.Printf`. Syntax-highlighting the output would be drawing
 a tool that does not exist.
 
-**The two JSON files** are the ones that session wrote, byte for byte apart from
-the same path re-rooting. They are the clearest statement of the split worth
-understanding: `@aviorstudio/gd-gesture` appears in `gdam.json` with an empty
-object because a linked addon has no published version to pin, and the path it
-actually resolves to appears only in `gdam.link.json`.
+**The two JSON files** show the released manifest contract. They are the
+clearest statement of the split worth understanding: published dependencies
+store exact Release tags, while the linked `@aviorstudio/gd-gesture` has an
+empty object and its local path appears only in `gdam.link.json`.
 
 **The command table** is every command in `printUsage` in `main.go`, all nine,
 not the three that make a good demo. The three environment variables named in
 the prose — `GDAM_SECRET_KEY`, `GDAM_API_URL`, `GITHUB_TOKEN` — are from the
 same place.
 
-**The workflow snippet** is the one in the `gdam-actions` README, including the
-reason it is two steps: `publish` needs the CLI, so it says so plainly rather
-than failing with `gdam: command not found`.
+**The workflow snippet** uses the public Actions v0.0.2 tag and installs public
+CLI v0.0.8. It shows all inputs needed when selecting an asset. Exact tags are
+the readable recommendation; the adjacent warning accurately identifies a full
+commit SHA as GitHub's strongest action pin.
 
 **The install routes** in the closing block are both of the ones the README
 documents. The hero shows `go install` rather than the shell installer only
@@ -82,9 +81,11 @@ font CDN and no CSP exception is needed to render the page.
 split is the same one ormos uses — apex for the site, `app.` for the
 application — and it matches the existing `api.gdam.dev`.
 
-**It is not the layout in production today.** `gdam-be` currently serves the
-registry application at the apex, so shipping this page to `gdam.dev` means
-moving that app to `app.gdam.dev` first. Until then every registry link here
-points somewhere that does not answer. The two hosts appear in one constant each
-(`appUrl` in `src/pages/index.astro`, the canonical base in
-`src/layouts/Full.astro`) plus `robots.txt` and `sitemap.xml`.
+**Correction (2026-09-03):** the earlier paragraph said this layout was not in
+production and that the registry still occupied the apex. That is no longer
+true: `gdam.dev` serves this static landing page and `app.gdam.dev` serves the
+registry. GitHub records Production deployments created by the Vercel GitHub
+integration after repository updates. There is no versioned deployment workflow
+or deployment credential in this repository, so CI must not claim that it
+deploys the site. The canonical host remains explicit in `Full.astro`,
+`robots.txt`, and `sitemap.xml`.
