@@ -13,13 +13,13 @@ const icon = (name: keyof typeof octicons, size = 16) =>
 // whole surface, and it is small enough to print.
 const commands = [
 	{ cmd: 'gdam init', does: 'Write gdam.json in this Godot project' },
-	{ cmd: 'gdam add @user/addon[@version]', does: 'Resolve it, install it, record it' },
-	{ cmd: 'gdam install', does: 'Install every version the manifest pins' },
+	{ cmd: 'gdam add @user/addon[@tag]', does: 'Resolve it, install it, record its exact Release tag' },
+	{ cmd: 'gdam install', does: 'Install every exact tag the manifest records' },
 	{ cmd: 'gdam remove @user/addon', does: 'Take it out, and out of the manifest' },
 	{ cmd: 'gdam link @user/addon [path]', does: 'Point it at a checkout on your disk' },
-	{ cmd: 'gdam unlink @user/addon', does: 'Put the published version back' },
+	{ cmd: 'gdam unlink @user/addon', does: 'Put the tagged release back' },
 	{ cmd: 'gdam unlink --all', does: 'Undo every link at once' },
-	{ cmd: 'gdam publish @user/addon VERSION TAG', does: 'Point a version at a release asset' },
+	{ cmd: 'gdam publish @user/addon TAG [ASSET_NAME]', does: 'Publish an exact Release tag and optional asset' },
 	{ cmd: 'gdam --version', does: 'What is installed' },
 ];
 ---
@@ -43,12 +43,12 @@ const commands = [
 					<p class="eyebrow"><span></span> Godot Addon Manager</p>
 					<h1>Godot addons, <em>pinned.</em></h1>
 					<p class="lede">
-						One manifest lists what your project uses, and <code>gdam install</code> puts exactly
-						those versions under <code>res://addons/</code>. Releases are GitHub releases, the
-						registry only records which one each version points at, and installing needs no account.
+						One manifest lists what your project uses, and <code>gdam install</code> puts those exact,
+						case-sensitive GitHub Release tags under <code>res://addons/</code>. Installing needs no
+						account.
 					</p>
 					<div class="hero-actions">
-						<code class="install">go install github.com/aviorstudio/gdam@latest</code>
+						<code class="install">go install github.com/aviorstudio/gdam@v0.0.8</code>
 						<p>MIT · one static binary · Linux, macOS and Windows</p>
 					</div>
 				</div>
@@ -63,17 +63,17 @@ const commands = [
 created ~/code/roguelike/godot_client/gdam.json
 
 <span class="cmd">$ gdam add @aviorstudio/gd-router</span>
-installed @aviorstudio/gd-router@0.0.2 (v0.0.2)
+installed @aviorstudio/gd-router@v0.0.2
 
 <span class="cmd">$ gdam add @aviorstudio/gd-observe</span>
-installed @aviorstudio/gd-observe@0.0.3 (gd-v0.0.3)
+installed @aviorstudio/gd-observe@gd-v0.0.3
 
 <span class="cmd">$ gdam link @aviorstudio/gd-gesture ../gd-gesture</span>
 linked @aviorstudio/gd-gesture -&gt; ~/code/roguelike/gd-gesture
 
 <span class="cmd">$ gdam install</span>
-installed @aviorstudio/gd-observe@0.0.3
-installed @aviorstudio/gd-router@0.0.2
+installed @aviorstudio/gd-observe@gd-v0.0.3
+installed @aviorstudio/gd-router@v0.0.2
 <span class="cursor"></span></pre>
 					</div>
 					<div class="frame-keys"><span>3 addons</span> two pinned, one linked<i></i><span>0 accounts</span> reads are public</div>
@@ -86,7 +86,7 @@ installed @aviorstudio/gd-router@0.0.2
 					<div>
 						<h2>The manifest you ship never learns about your disk</h2>
 						<p>
-							<code>gdam.json</code> holds addon names and versions and nothing else. A local
+							<code>gdam.json</code> holds addon names and exact Release tags and nothing else. A local
 							checkout is recorded in a separate <code>gdam.link.json</code>, so you can build
 							against an addon you are editing without the file your teammates install from
 							changing at all.
@@ -98,8 +98,9 @@ installed @aviorstudio/gd-router@0.0.2
 					<div>
 						<h2>The registry stores a pointer, not your code</h2>
 						<p>
-							Publishing points a semver version at a GitHub release tag and an asset in it. The
-							ZIP has the addon files at its root, <code>plugin.cfg</code> included, and GDAM
+							Publishing records one exact, case-sensitive GitHub Release tag and an asset in it —
+							there is no separate semantic package version. The extracted package root must include
+							<code>plugin.cfg</code>, and GDAM
 							unpacks it into <code>res://addons/@owner_repo/</code> whatever the asset was called.
 							Your releases stay yours.
 						</p>
@@ -125,9 +126,8 @@ installed @aviorstudio/gd-router@0.0.2
 					<h2>What ends up in your repo.</h2>
 					<p>
 						The session above wrote both of these. <code>gdam.json</code> is the one you commit: it
-						pins <code>gd-observe</code> and <code>gd-router</code>, and lists
-						<code>gd-gesture</code> with no version at all, because a linked addon has no published
-						version to pin.
+						records exact tags for <code>gd-observe</code> and <code>gd-router</code>, and lists
+						<code>gd-gesture</code> with no tag because that addon is linked locally.
 					</p>
 					<p class="aside">
 						Where that link actually points lives in <code>gdam.link.json</code> — an absolute path
@@ -143,10 +143,10 @@ installed @aviorstudio/gd-router@0.0.2
   "addons": &#123;
     "@aviorstudio/gd-gesture": &#123;&#125;,
     "@aviorstudio/gd-observe": &#123;
-      "version": "0.0.3"
+      "tag": "gd-v0.0.3"
     &#125;,
     "@aviorstudio/gd-router": &#123;
-      "version": "0.0.2"
+      "tag": "v0.0.2"
     &#125;
   &#125;
 &#125;</pre>
@@ -175,17 +175,35 @@ installed @aviorstudio/gd-router@0.0.2
 						<code>GITHUB_TOKEN</code> when release downloads start hitting GitHub's rate limit.
 					</p>
 					<p class="aside">
-						Publishing from a release workflow is two steps, because the publish action refuses to
-						guess whether the CLI is there — it says so plainly rather than failing with
-						<code>gdam: command not found</code>.
+						Without a tag, GDAM resolves the newest stable (non-prerelease) Release. Exact tags may
+						select prereleases and are case-sensitive: <code>Release-1</code> and
+						<code>release-1</code> are different.
 					</p>
-					<pre class="yaml"><span class="key">- uses:</span> aviorstudio/gdam-actions/install@v0
-
-<span class="key">- uses:</span> aviorstudio/gdam-actions/publish@v0
+					<pre class="yaml"><span class="key">- uses:</span> aviorstudio/gdam-actions/install@v0.0.2
   <span class="key">with:</span>
-    <span class="key">version:</span> &#36;&#123;&#123; steps.release.outputs.version &#125;&#125;
+    <span class="key">version:</span> v0.0.8
+
+<span class="key">- uses:</span> aviorstudio/gdam-actions/publish@v0.0.2
+  <span class="key">with:</span>
     <span class="key">tag:</span> &#36;&#123;&#123; steps.release.outputs.tag &#125;&#125;
+    <span class="key">asset:</span> &#36;&#123;&#123; steps.release.outputs.asset &#125;&#125;
     <span class="key">secret-key:</span> &#36;&#123;&#123; secrets.GDAM_SECRET_KEY &#125;&#125;</pre>
+					<p class="aside pin-note">
+						Exact release tags make the snippet readable and reproducible under the project's
+						no-move policy, but Git tags can be moved or deleted. A Full 40-character commit SHA is
+						the strongest GitHub Actions pin; use
+						<code>d735444eb470194585def44521d5d91df2260e63</code> when immutability is required.
+					</p>
+					<p class="aside integrity">
+						<strong>What v0.0.8 enforces.</strong> Registry requests time out after 30 seconds and
+						responses are limited to 4 MiB. Asset downloads use the immutable asset-ID endpoint,
+						time out after two minutes, follow at most five redirects, remove authorization on a
+						cross-origin redirect, and stop at 128 MiB. GDAM checks the registered release, commit,
+						asset identity and mandatory SHA-256 digest before extraction, and detects a truncated
+						declared download. Extraction rejects absolute paths, <code>..</code> traversal,
+						backslashes and symlinks, with at most 10,000 entries and 512 MiB total uncompressed
+						content. The resulting package root must contain <code>plugin.cfg</code>.
+					</p>
 				</div>
 
 				<table>
@@ -211,11 +229,11 @@ installed @aviorstudio/gd-router@0.0.2
 				<div class="install-routes">
 					<div>
 						<p>macOS and Linux</p>
-						<code>curl -fsSL https://raw.githubusercontent.com/aviorstudio/gdam/main/scripts/install_cli.sh | sh</code>
+						<code>curl -fsSL https://raw.githubusercontent.com/aviorstudio/gdam/main/scripts/install_cli.sh | VERSION=v0.0.8 sh</code>
 					</div>
 					<div>
 						<p>With the Go toolchain</p>
-						<code>go install github.com/aviorstudio/gdam@latest</code>
+						<code>go install github.com/aviorstudio/gdam@v0.0.8</code>
 					</div>
 				</div>
 				<div class="closing-actions">
