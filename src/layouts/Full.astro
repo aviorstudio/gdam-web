@@ -42,7 +42,7 @@ const structuredData = [
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
-						'GDAM is a package manager for Godot addons. A small Go CLI installs, links, removes and publishes addons from GitHub release assets, and a public registry records which release each published version points at. It is MIT licensed and ships as a single static binary for Linux, macOS and Windows.',
+						'GDAM is a package manager for Godot addons. A small Go CLI installs, links, removes and publishes addons from GitHub release assets, and a public registry records each exact, case-sensitive Release tag. It is MIT licensed and ships as a single static binary for Linux, macOS and Windows.',
 				},
 			},
 			{
@@ -60,7 +60,7 @@ const structuredData = [
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
-						'gdam link points an addon at a directory on your disk and records that in a separate gdam.link.json file. The published manifest, gdam.json, keeps only addon names and versions, so building against a local checkout never changes what your project ships. gdam unlink puts the installed version back.',
+						'gdam link points an addon at a directory on your disk and records that in a separate gdam.link.json file. The published manifest, gdam.json, keeps only addon names and exact Release tags, so building against a local checkout never changes what your project ships. gdam unlink puts the tagged release back.',
 				},
 			},
 			{
@@ -69,7 +69,7 @@ const structuredData = [
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
-						'Into res://addons/@owner_repo/, regardless of what the release asset was named. Publishing points a semver version at a GitHub release tag and an asset; that ZIP has the addon files at its root, including plugin.cfg, and GDAM unpacks it into its own naming convention.',
+						'Into res://addons/@owner_repo/, regardless of what the release asset was named. Publishing records one exact, case-sensitive GitHub Release tag and an asset; the extracted package root must include plugin.cfg, and GDAM installs it using its own naming convention.',
 				},
 			},
 		],
