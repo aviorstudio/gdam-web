@@ -81,3 +81,7 @@ integration after repository updates. There is no versioned deployment workflow
 or deployment credential in this repository, so CI must not claim that it
 deploys the site. The canonical host remains explicit in `Full.astro`,
 `robots.txt`, and `sitemap.xml`.
+
+## Standard developer commands
+
+Use `mise install` for the pinned toolchain. `mise exec -- make check` installs frozen dependencies, builds the static site and runs every existing output assertion. `make test` checks an existing build. No source lint or type-check gate is configured, so that profile capability is explicitly unsupported. `make dev` runs in the foreground; stop with Ctrl-C. `make clean` removes generated output.
