@@ -26,8 +26,8 @@ const filesUnder = async (directory) => {
 assert(html.includes('gdam add @user/addon[@tag]'), 'exact add tag syntax is present');
 assert(html.includes('gdam publish @user/addon TAG [ASSET_NAME]'), 'current publish arity is present');
 assert(html.includes('"tag": "gd-v0.0.3"'), 'manifest stores exact tag values');
-assert(html.includes('aviorstudio/gdam-actions/install@v0.0.2'), 'install action uses released v0.0.2 tag');
-assert(html.includes('aviorstudio/gdam-actions/publish@v0.0.2'), 'publish action uses released v0.0.2 tag');
+assert(html.includes('aviorstudio/gdam-actions/install@v0.1.0'), 'install action uses released v0.1.0 tag');
+assert(html.includes('aviorstudio/gdam-actions/publish@v0.1.0'), 'publish action uses released v0.1.0 tag');
 assert(visible.includes('version: v0.0.8'), 'install action pins released CLI v0.0.8');
 assert(visible.includes('Full 40-character commit SHA'), 'strongest action pin is explained');
 assert(visible.includes('newest stable (non-prerelease) Release'), 'default stable resolution is explained');

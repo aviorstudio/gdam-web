@@ -51,7 +51,7 @@ not the three that make a good demo. The three environment variables named in
 the prose — `GDAM_SECRET_KEY`, `GDAM_API_URL`, `GITHUB_TOKEN` — are from the
 same place.
 
-**The workflow snippet** uses the public Actions v0.0.2 tag and installs public
+**The workflow snippet** uses the public Actions v0.1.0 tag and installs public
 CLI v0.0.8. It shows all inputs needed when selecting an asset. Exact tags are
 the readable recommendation; the adjacent warning accurately identifies a full
 commit SHA as GitHub's strongest action pin.
@@ -62,17 +62,9 @@ because the installer one-liner is 94 characters and would arrive as a
 horizontally scrolling box in the narrow hero column; the closing block gives it
 the full width and lists both.
 
-## Colour
+## Presentation
 
-The palette is the registry's own, taken from what `app.gdam.dev` already
-renders: `#0f172b` ink, `#f1f5f9` paper, and `#0284c7` for anything actionable.
-The front door and the thing behind it should look like one site rather than two
-designs sharing a domain. `--sky-deep` (`#0369a1`) is the darkened form for
-small text on paper, since the lighter blue is a button colour and does not
-carry body copy.
-
-Fonts are the platform's own. No font is fetched, so no visitor's IP reaches a
-font CDN and no CSP exception is needed to render the page.
+The blueprint layout keeps the registry’s slate and sky palette. The terminal output and manifest examples remain text, with no client runtime or external font requests.
 
 ## Domain
 
