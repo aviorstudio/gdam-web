@@ -99,5 +99,5 @@ const structuredData = [
 		<title>{title}</title>
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	</head>
-	<body><slot /></body>
+	<body><a class="skip-link" href="#main-content">Skip to content</a><slot /></body>
 </html>
