@@ -1,42 +1,48 @@
-/* Fonts are the platform's own, not fetched. The stacks below reach for the
-   native UI sans and native monospace of each platform, so the site loads what
-   the reader already has, makes no third-party request, sends nobody's IP to a
-   font CDN, and needs no CSP exception to do it. */
-
-/* The colours are the registry's own. #0f172b and #f1f5f9 are the ink and
-   paper the application at app.gdam.dev already renders in, and #0284c7 is the
-   blue it uses for anything actionable -- so the front door and the thing
-   behind it are the same site rather than two designs sharing a domain.
-   --sky-deep is the darkened form for small text on paper, since the lighter
-   blue is a button colour and does not carry body copy.
-
-   Inside the terminal frame there is no colour at all beyond the prompt. That
-   is not a stylistic choice: gdam prints plain lines and emits no ANSI codes,
-   and inventing syntax highlighting for it would be drawing a tool that does
-   not exist. */
 :root {
-	--ink: #0f172b;
-	--quiet: #56637a;
-	--sky: #0284c7;
-	--sky-deep: #0369a1;
-	--paper: #f1f5f9;
-	--line: #d2dae4;
-	--sans: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
-	--mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+	--paper: #edf3ff;
+	--ink: #173362;
+	--line: #cbd8ed;
+	--mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+	--sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
 	font-family: var(--sans);
-	background: var(--paper);
-	color: var(--ink);
+	background: #edf3ff;
+	color: #173362;
 	font-synthesis: none;
+	color-scheme: light;
 }
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--paper); }
-body { min-width: 320px; min-height: 100svh; margin: 0; background: var(--paper); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
-button, input, textarea, select { font: inherit; }
-::selection { background: #bae3fb; color: var(--ink); }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
-
-a:focus-visible, summary:focus-visible { outline: 3px solid currentColor; outline-offset: 5px; }
-
-.skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 12px 18px; background: #fff; color: #111; transform: translateY(-160%); }
-.skip-link:focus { transform: translateY(0); }
+* {
+	box-sizing: border-box;
+}
+html {
+	scroll-behavior: smooth;
+}
+body {
+	margin: 0;
+	min-width: 320px;
+	-webkit-font-smoothing: antialiased;
+}
+::selection {
+	background: #173362;
+	color: #edf3ff;
+}
+.skip-link {
+	position: absolute;
+	left: 16px;
+	top: -80px;
+	z-index: 100;
+	padding: 12px 18px;
+	background: #173362;
+	color: #edf3ff;
+}
+.skip-link:focus {
+	top: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation: none !important;
+		transition: none !important;
+	}
+}
