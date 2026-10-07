@@ -37,7 +37,7 @@ const commands = [
 			<a class="header-cta" href={appUrl}>Browse the registry <span class="icon" set:html={icon('arrow-up-right', 14)} /></a>
 		</header>
 
-		<main>
+		<main id="main-content">
 			<section class="hero">
 				<div class="hero-copy">
 					<p class="eyebrow"><span></span> Godot Addon Manager</p>
@@ -179,11 +179,11 @@ installed @aviorstudio/gd-router@v0.0.2
 						select prereleases and are case-sensitive: <code>Release-1</code> and
 						<code>release-1</code> are different.
 					</p>
-					<pre class="yaml"><span class="key">- uses:</span> aviorstudio/gdam-actions/install@v0.0.2
+					<pre class="yaml"><span class="key">- uses:</span> aviorstudio/gdam-actions/install@v0.1.0
   <span class="key">with:</span>
     <span class="key">version:</span> v0.0.8
 
-<span class="key">- uses:</span> aviorstudio/gdam-actions/publish@v0.0.2
+<span class="key">- uses:</span> aviorstudio/gdam-actions/publish@v0.1.0
   <span class="key">with:</span>
     <span class="key">tag:</span> &#36;&#123;&#123; steps.release.outputs.tag &#125;&#125;
     <span class="key">asset:</span> &#36;&#123;&#123; steps.release.outputs.asset &#125;&#125;
@@ -192,7 +192,7 @@ installed @aviorstudio/gd-router@v0.0.2
 						Exact release tags make the snippet readable and reproducible under the project's
 						no-move policy, but Git tags can be moved or deleted. A Full 40-character commit SHA is
 						the strongest GitHub Actions pin; use
-						<code>d735444eb470194585def44521d5d91df2260e63</code> when immutability is required.
+						<code>15042aa1ff1e28f5e97828384b78a25c63d0199e</code> when immutability is required.
 					</p>
 					<p class="aside integrity">
 						<strong>What v0.0.8 enforces.</strong> Registry requests time out after 30 seconds and
@@ -393,4 +393,30 @@ installed @aviorstudio/gd-router@v0.0.2
 		.footer-brand { display: none; }
 		footer p:nth-child(2) { text-align: left; }
 	}
+
+
+/* A blueprint for a project: a ruled technical page and an offset terminal panel. */
+.site-header { border-bottom: 1px solid #bdd2e0; }
+.hero { grid-template-columns: 1.1fr 1fr; margin-top: 76px; gap: 50px; }
+h1 { font-weight: 800; font-size: clamp(52px,6vw,86px); letter-spacing: -.07em; line-height: 1.03; }
+h1 em { display: block; font-family: var(--sans); font-style: normal; font-weight: 800; }
+.hero-copy .eyebrow { border-left: 3px solid #0284c7; padding-left: 13px; }
+.eyebrow span { display: none; }
+.product-frame { min-width: 0; border-radius: 0; transform: none; box-shadow: 10px 10px 0 #b7d9ed; }
+.product-frame::before { display: none; }
+.install { border-radius: 0; border-left: 3px solid #0284c7; }
+.principles { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border: 0; gap: 0; }
+.principles article { display: block; border: 1px solid #bdd2e0; padding: 28px; }
+.principles article + article { border-left: 0; }
+.principles article div { display: block; }
+.number { display: block; font-size: 13px; margin-bottom: 30px; }
+.principles h2 { font-size: 22px; margin-bottom: 18px; }
+.manifests { border-top: 2px solid #0f172b; padding-top: 40px; }
+.closing { border-radius: 0; border-top: 6px solid #0284c7; }
+.closing > p { font-weight: 800; }
+@media (max-width: 980px) { .hero { grid-template-columns: 1fr; } .principles { grid-template-columns: 1fr; } .principles article + article { border-left: 1px solid #bdd2e0; border-top: 0; } }
+@media (max-width: 600px) { h1 { font-size: 56px; } .hero { margin-top: 42px; } .principles article { padding: 24px; } }
+
+
+.hero-actions p { color: #526174; }
 </style>
