@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "platform": "0.1.1",
+  "platform_revision": "8c40c0c8cd2d480370be1bca062741ebe7275260",
+  "manifest_sha256": "f5fbaa736cba64409e0d77c7d7b3100341a66f1674b6f364849dafd96a728661",
+  "runtime_sha256": "2cc405905d6b5819bf555c89b330781ac3a4e484261e9b57669766258dd4d812",
+  "recipe_sha256": "9f2b1b49bae02d898c3957d98d8864def57f024278b3ec63a21a3ba16575038f"
+}
