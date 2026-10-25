@@ -25,3 +25,11 @@ pnpm-debug.log*
 
 # Generated CI evidence
 .artifacts/
+
+.komizo.mise.toml
+
+.komizo.mise.lock
+
+.komizo.mise*.toml
+
+.komizo.mise*.lock

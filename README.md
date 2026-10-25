@@ -1,87 +1,16 @@
-# GDAM web
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: ce968f9e9e423758f7587134de5caa63fb99d2cd4d63d4522b2309dc0518c44c -->
 
-The public [gdam.dev](https://gdam.dev) site: one static Astro page describing
-[GDAM](https://github.com/aviorstudio/gdam), the Godot Addon Manager.
+# GDAM website
 
-This is the front door only. The registry application — sign-in, owner pages,
-addon pages, docs — is a separate app served from `app.gdam.dev`, and the
-registry API from `api.gdam.dev`. Nothing here talks to either: there is no
-authentication, no application state, no backend and no runtime environment
-configuration. The page ships no runtime JavaScript, which is why there are no
-integrations in `astro.config.mjs` and why CI permits only the non-executable
-JSON-LD script element and rejects JavaScript assets or external scripts.
+Static Astro website for [GDAM](https://github.com/aviorstudio/gdam).
 
-## Commands
+Install the [Komizo release](https://github.com/nicodes/komizo#installation) matching `komizo.lock`, then run:
 
-| Command | Action |
-| --- | --- |
-| `bun install` | Install dependencies |
-| `bun dev` | Start the Astro development server |
-| `bun run build` | Generate the static site in `dist/` |
-| `bun preview` | Preview the static build |
+```sh
+komizo dev                 # Foreground development server
+komizo check               # Frozen dependencies, build and static output checks
+komizo run build           # Generate dist/
+komizo describe            # Show locked tools and available commands
+```
 
-## What is on the page, and where it came from
-
-Nothing on the page is invented. Everything traceable to the `gdam` and
-`gdam-actions` repositories is listed here so it can be re-checked when either
-changes.
-
-**The terminal frame** follows the released v0.0.8 output for `init`, two
-`add`s, a `link`, then `install`. The session is internally consistent on
-purpose: `gdam install` prints two lines rather than three because the third
-addon is linked, and a linked addon has nothing to install.
-
-The only edit is the path prefix. `gdam init` and `gdam link` print absolute
-paths, and the real ones were a scratch directory, so they were re-rooted at
-`~/code/roguelike/godot_client` — consistently, so that `../gd-gesture` still
-resolves to the `~/code/roguelike/gd-gesture` the frame shows.
-
-**There is no colour in the frame beyond the prompt.** That is not restraint,
-it is accuracy: `gdam` emits no ANSI codes at all — every line it prints is
-plain text through `fmt.Printf`. Syntax-highlighting the output would be drawing
-a tool that does not exist.
-
-**The two JSON files** show the released manifest contract. They are the
-clearest statement of the split worth understanding: published dependencies
-store exact Release tags, while the linked `@aviorstudio/gd-gesture` has an
-empty object and its local path appears only in `gdam.link.json`.
-
-**The command table** is every command in `printUsage` in `main.go`, all nine,
-not the three that make a good demo. The three environment variables named in
-the prose — `GDAM_SECRET_KEY`, `GDAM_API_URL`, `GITHUB_TOKEN` — are from the
-same place.
-
-**The workflow snippet** uses the public Actions v0.1.0 tag and installs public
-CLI v0.0.8. It shows all inputs needed when selecting an asset. Exact tags are
-the readable recommendation; the adjacent warning accurately identifies a full
-commit SHA as GitHub's strongest action pin.
-
-**The install routes** in the closing block are both of the ones the README
-documents. The hero shows `go install` rather than the shell installer only
-because the installer one-liner is 94 characters and would arrive as a
-horizontally scrolling box in the narrow hero column; the closing block gives it
-the full width and lists both.
-
-## Presentation
-
-The blueprint layout keeps the registry’s slate and sky palette. The terminal output and manifest examples remain text, with no client runtime or external font requests.
-
-## Domain
-
-`src/layouts/Full.astro`, `public/robots.txt` and `public/sitemap.xml` assume
-`https://gdam.dev`, and the registry links point at `https://app.gdam.dev`. That
-split is the same one ormos uses — apex for the site, `app.` for the
-application — and it matches the existing `api.gdam.dev`.
-
-**Correction (2026-09-03):** the earlier paragraph said this layout was not in
-production and that the registry still occupied the apex. That is no longer
-true: `gdam.dev` serves this static landing page and `app.gdam.dev` serves the
-registry. GitHub records Production deployments created by the Vercel GitHub
-integration after repository updates. There is no versioned deployment workflow
-or deployment credential in this repository, so CI must not claim that it
-deploys the site. The canonical host remains explicit in `Full.astro`,
-`robots.txt`, and `sitemap.xml`.
-
-## Standard developer commands
-
-Use `mise install` for the pinned toolchain. `mise exec -- make check` installs frozen dependencies, builds the static site and runs every existing output assertion. `make test` checks an existing build. No source lint or type-check gate is configured, so that profile capability is explicitly unsupported. `make dev` runs in the foreground; stop with Ctrl-C. `make clean` removes generated output.
+Ctrl-C stops development. This static website requires no runtime credentials or `.env` file.
