@@ -26,8 +26,8 @@ concurrency:
 jobs:
   auto-merge:
     name: Apply dependency policy
-    if: github.ref == 'refs/heads/main' && (github.event_name != 'pull_request_target' || (github.event.pull_request.user.login
-      == 'dependabot[bot]' && github.event.pull_request.draft == false))
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'pull_request_target' || (github.event.pull_request.user.login == 'dependabot[bot]'
+      && github.event.pull_request.draft == false))
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
@@ -45,7 +45,7 @@ jobs:
         ref: main
       timeout-minutes: 3
     - name: Set up locked Komizo
-      uses: nicodes/komizo/setup@8c40c0c8cd2d480370be1bca062741ebe7275260
+      uses: nicodes/komizo/setup@3b2aaf26abf4d1ee27c1d285efb9b8fafdaee661
       env:
         GH_TOKEN: ${{ github.token }}
       timeout-minutes: 5
