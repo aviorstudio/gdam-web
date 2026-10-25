@@ -27,7 +27,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Set up locked Komizo
-      uses: nicodes/komizo/setup@8c40c0c8cd2d480370be1bca062741ebe7275260
+      uses: nicodes/komizo/setup@3b2aaf26abf4d1ee27c1d285efb9b8fafdaee661
       env:
         GH_TOKEN: ${{ github.token }}
       timeout-minutes: 5
@@ -35,7 +35,10 @@ jobs:
       if: github.event_name == 'pull_request'
       env:
         EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
-      run: komizo exec --tools python -- bash -euo pipefail -c 'python3 "$CICD_ENGINEERING/helpers/integration-identity.py"'
+      run: |
+        komizo exec --tools python -- bash -euo pipefail <<'KOMIZO_COMMAND'
+        python3 "$CICD_ENGINEERING/helpers/integration-identity.py"
+        KOMIZO_COMMAND
     - name: Retain integration identity
       if: github.event_name == 'pull_request'
       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -46,6 +49,6 @@ jobs:
         retention-days: 7
         include-hidden-files: true
     - name: Check project
-      uses: nicodes/komizo/run@8c40c0c8cd2d480370be1bca062741ebe7275260
+      uses: nicodes/komizo/run@3b2aaf26abf4d1ee27c1d285efb9b8fafdaee661
       with:
         target: check
