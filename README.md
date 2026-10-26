@@ -1,10 +1,10 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: ce968f9e9e423758f7587134de5caa63fb99d2cd4d63d4522b2309dc0518c44c -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 7a17fba5596ab7c366f83dd8ef708562f4c7644725aa8cadccbe9ad46d581a18 -->
 
 # GDAM website
 
 Static Astro website for [GDAM](https://github.com/aviorstudio/gdam).
 
-Install the [Komizo release](https://github.com/nicodes/komizo#installation) matching `komizo.lock`, then run:
+Install the [Komizo release](https://github.com/nicodes/komizo#install) matching `komizo.lock`, then run:
 
 ```sh
 komizo dev                 # Foreground development server
