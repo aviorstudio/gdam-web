@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-	title = 'GDAM — Godot Addon Manager',
+	title = 'gdam — Godot Addon Manager',
 	description =
 		'Install, link, remove and publish Godot addons from GitHub release assets, through a small CLI and a public registry. One manifest, no account needed to install.',
 } = Astro.props;
@@ -23,7 +23,7 @@ const structuredData = [
 	{
 		'@context': 'https://schema.org',
 		'@type': 'SoftwareApplication',
-		name: 'GDAM',
+		name: 'gdam',
 		alternateName: 'Godot Addon Manager',
 		url: 'https://gdam.dev',
 		applicationCategory: 'DeveloperApplication',
@@ -38,11 +38,11 @@ const structuredData = [
 		mainEntity: [
 			{
 				'@type': 'Question',
-				name: 'What is GDAM?',
+				name: 'What is gdam?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
-						'GDAM is a package manager for Godot addons. A small Go CLI installs, links, removes and publishes addons from GitHub release assets, and a public registry records each exact, case-sensitive Release tag. It is MIT licensed and ships as a single static binary for Linux, macOS and Windows.',
+						'gdam is a package manager for Godot addons. A small Go CLI installs, links, removes and publishes addons from GitHub release assets, and a public registry records each exact, case-sensitive Release tag. It is MIT licensed and ships as a single static binary for Linux, macOS and Windows.',
 				},
 			},
 			{
@@ -56,7 +56,7 @@ const structuredData = [
 			},
 			{
 				'@type': 'Question',
-				name: 'How does GDAM handle an addon I am developing locally?',
+				name: 'How does gdam handle an addon I am developing locally?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
@@ -65,11 +65,11 @@ const structuredData = [
 			},
 			{
 				'@type': 'Question',
-				name: 'Where does GDAM install addons?',
+				name: 'Where does gdam install addons?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text:
-						'Into res://addons/@owner_repo/, regardless of what the release asset was named. Publishing records one exact, case-sensitive GitHub Release tag and an asset; the extracted package root must include plugin.cfg, and GDAM installs it using its own naming convention.',
+						'Into res://addons/@owner_repo/, regardless of what the release asset was named. Publishing records one exact, case-sensitive GitHub Release tag and an asset; the extracted package root must include plugin.cfg, and gdam installs it using its own naming convention.',
 				},
 			},
 		],
@@ -88,7 +88,7 @@ const structuredData = [
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="GDAM" />
+		<meta property="og:site_name" content="gdam" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
