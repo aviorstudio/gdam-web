@@ -3,6 +3,7 @@ import Full from '../layouts/Full.astro';
 import octicons from '@primer/octicons';
 
 const appUrl = 'https://app.gdam.dev';
+const waitlistUrl = `${appUrl}/register`;
 const repo = 'https://github.com/aviorstudio/gdam';
 const actions = 'https://github.com/aviorstudio/gdam-actions';
 const icon = (name: keyof typeof octicons, size = 16) => octicons[name].toSVG({ width: size, height: size });
@@ -48,9 +49,10 @@ const commands = [
 						One manifest for the addons your project needs. Exact GitHub Release tags. A single command to put
 						everything where it belongs.
 					</p>
-					<a class="cta" href={appUrl}>
-						Explore the registry ↗
-					</a>
+					<div class="cover-actions">
+						<a class="cta" href={waitlistUrl}>Join the waitlist ↗</a>
+						<a class="registry-link" href={appUrl}>Explore the registry ↗</a>
+					</div>
 					<p class="source-label">OPEN SOURCE / NO ACCOUNT TO INSTALL</p>
 				</div>
 				<div class="package-map">
@@ -416,6 +418,16 @@ $ gdam install
 	}
 	main > section {
 		margin-bottom: 100px;
+	}
+	.cover-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 16px 24px;
+	}
+	.registry-link {
+		font-size: 14px;
+		font-weight: 650;
 	}
 	.source-label {
 		font: 10px var(--mono);
