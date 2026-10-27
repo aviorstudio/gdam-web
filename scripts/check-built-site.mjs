@@ -11,6 +11,8 @@ const assert = (condition, message) => {
 	if (!condition) failures.push(message);
 };
 
+assert(/<a\b[^>]*href="https:\/\/app\.gdam\.dev\/register"[^>]*>\s*Join the waitlist/.test(html), 'waitlist action opens the app registration entry point');
+
 const filesUnder = async (directory) => {
 	const entries = await readdir(directory, { withFileTypes: true });
 	return (
