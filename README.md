@@ -1,4 +1,4 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 6c398129c814eb708665d466054725bd6622a274b295f145b24e3989c9328bc9 -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 6fea0b31c36d76a45a9d70ce38e0105157ba898a4fdb204761a9c1e69894b0e1 -->
 
 # gdam website
 
@@ -14,3 +14,11 @@ komizo describe            # Show locked tools and available commands
 ```
 
 Ctrl-C stops development. This static website requires no runtime credentials or `.env` file.
+
+## Install the CLI
+
+```sh
+curl -fsSL https://gdam.dev/install | sh
+```
+
+See [gdam](https://github.com/aviorstudio/gdam#readme) for setup and installation options.

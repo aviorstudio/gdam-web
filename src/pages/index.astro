@@ -22,6 +22,7 @@ const commands = [
 	{ cmd: 'gdam publish @user/addon TAG [ASSET_NAME]', does: 'Publish an exact Release tag and optional asset' },
 	{ cmd: 'gdam --version', does: 'What is installed' },
 ];
+const installCommand = "curl -fsSL https://gdam.dev/install | sh";
 ---
 
 <Full>
@@ -109,7 +110,7 @@ const commands = [
 						<span>GODOT PROJECT / QUICK START</span>
 						<span>↗</span>
 					</div>
-					<pre><span>$ go install github.com/aviorstudio/gdam@v0.0.8</span>
+					<pre><span>{installCommand}</span>
 
 $ gdam init
 <span>created gdam.json</span>

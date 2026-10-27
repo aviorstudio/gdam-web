@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/install",
+      "destination": "https://raw.githubusercontent.com/aviorstudio/gdam/main/scripts/install_cli.sh",
+      "permanent": false
+    }
+  ]
+}
