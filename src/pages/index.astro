@@ -1,4 +1,5 @@
 ---
+import InstallCommand from '../components/InstallCommand.astro';
 import Full from '../layouts/Full.astro';
 import octicons from '@primer/octicons';
 
@@ -23,6 +24,7 @@ const commands = [
 	{ cmd: 'gdam --version', does: 'What is installed' },
 ];
 const installCommand = "curl -fsSL https://gdam.dev/install | sh";
+const miseCommand = "mise use --global github:aviorstudio/gdam@latest";
 ---
 
 <Full>
@@ -110,9 +112,11 @@ const installCommand = "curl -fsSL https://gdam.dev/install | sh";
 						<span>GODOT PROJECT / QUICK START</span>
 						<span>↗</span>
 					</div>
-					<pre><span>{installCommand}</span>
-
-$ gdam init
+					<p>curl</p>
+					<InstallCommand command={installCommand} method="curl" />
+					<p>mise</p>
+					<InstallCommand command={miseCommand} method="mise" />
+					<pre>$ gdam init
 <span>created gdam.json</span>
 
 $ gdam add @aviorstudio/gd-router
@@ -278,6 +282,7 @@ $ gdam install
 			</nav>
 		</footer>
 	</div>
+	<script is:inline type="module" src="/install-copy.js"></script>
 </Full>
 <style>
 	* {
