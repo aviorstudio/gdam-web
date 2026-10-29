@@ -1,4 +1,4 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 6fea0b31c36d76a45a9d70ce38e0105157ba898a4fdb204761a9c1e69894b0e1 -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: e1b78d81dd050401d9973ab1196d255db0b5eed5f9b1d881e621927608337b45 -->
 
 # gdam website
 
@@ -17,8 +17,18 @@ Ctrl-C stops development. This static website requires no runtime credentials or
 
 ## Install the CLI
 
+With curl:
+
 ```sh
 curl -fsSL https://gdam.dev/install | sh
 ```
+
+Or with mise:
+
+```sh
+mise use --global github:aviorstudio/gdam@latest
+```
+
+Each install command has a Copy button with confirmation. If clipboard access is unavailable, the command remains selectable for manual copying.
 
 See [gdam](https://github.com/aviorstudio/gdam#readme) for setup and installation options.

@@ -49,12 +49,12 @@ for (const stale of [
 assert(!/aviorstudio\/gdam-actions\/(?:install|publish)@v0(?!\.)/.test(html), 'moving @v0 action references are absent');
 
 const scripts = [...html.matchAll(/<script\b([^>]*)>/gi)];
-assert(scripts.length === 1, 'only the JSON-LD script element exists');
-assert(/type="application\/ld\+json"/i.test(scripts[0][1]), 'the sole script is non-executable JSON-LD');
-assert(!/\bsrc\s*=/i.test(scripts[0][1]), 'no external runtime script is referenced');
+assert(scripts.length === 2, 'only JSON-LD and the clipboard module exist');
+assert(scripts.some((script) => /type="application\/ld\+json"/i.test(script[1])), 'JSON-LD metadata is present');
+assert(scripts.some((script) => /src="\/install-copy\.js"/.test(script[1])), 'clipboard module is present');
 
 const scriptAssets = (await filesUnder(fileURLToPath(dist))).filter((path) => /\.(?:[cm]?js)$/i.test(path));
-assert(scriptAssets.length === 0, `no JavaScript assets exist (${scriptAssets.join(', ')})`);
+assert(scriptAssets.length === 1 && scriptAssets[0].endsWith('/install-copy.js'), 'only the clipboard asset exists');
 
 assert(html.includes('<link rel="canonical" href="https://gdam.dev/">'), 'canonical URL remains gdam.dev');
 assert((await readFile(new URL('robots.txt', dist), 'utf8')).includes('Sitemap: https://gdam.dev/sitemap.xml'), 'robots points to the canonical sitemap');
@@ -64,4 +64,4 @@ if (failures.length > 0) {
 	throw new Error(`content gate failed:\n- ${failures.join('\n- ')}`);
 }
 
-console.log('content gates passed: exact tags, released pins, shipped limits, static metadata, and no runtime JavaScript');
+console.log('content gates passed: exact tags, released pins, shipped limits, static metadata, and clipboard-only JavaScript');
