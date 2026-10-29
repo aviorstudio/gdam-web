@@ -1,4 +1,4 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: e1b78d81dd050401d9973ab1196d255db0b5eed5f9b1d881e621927608337b45 -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 67d86ced6e607924635310328bfb11c8fa1a1fed65a321b8e6845ac5b3cccb65 -->
 
 # gdam website
 
@@ -29,6 +29,6 @@ Or with mise:
 mise use --global github:aviorstudio/gdam@latest
 ```
 
-Each install command has a Copy button with confirmation. If clipboard access is unavailable, the command remains selectable for manual copying.
+An icon-only copy control sits on the right inside each install-command outline and shows a checkmark after copying. If clipboard access is unavailable, the command remains selectable for manual copying.
 
 See [gdam](https://github.com/aviorstudio/gdam#readme) for setup and installation options.
