@@ -1,4 +1,4 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 5298fb2afc4f0f24f53598b750122597eeb02772edfcb8a212e20dc324fd5918 -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 8d73f6c7f08f2717b932a875671beedbd5c4e72e05db23671e3b1602275c4718 -->
 
 # gdam website
 
@@ -37,7 +37,7 @@ For contributor verification, prepare the pinned helper source before running na
 
 ```sh
 git clone https://github.com/nicodes/tools.git .ci-tools
-git -C .ci-tools checkout --detach 091101094fedf5ce2e67c339c1c9c842d6a662dc
+git -C .ci-tools checkout --detach 0f95a6df60f740b527596ed2c7f4590e3f2d5820
 mise install
 mise run check
 ```

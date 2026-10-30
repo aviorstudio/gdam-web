@@ -48,7 +48,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       timeout-minutes: 7
-      uses: nicodes/tools/dependencies@091101094fedf5ce2e67c339c1c9c842d6a662dc
+      uses: nicodes/tools/dependencies@0f95a6df60f740b527596ed2c7f4590e3f2d5820
       with:
         apply: 'true'
         output: ${{ runner.temp }}/dependency-report.json
