@@ -1,16 +1,16 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 67d86ced6e607924635310328bfb11c8fa1a1fed65a321b8e6845ac5b3cccb65 -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: a7a3977ae81e881ccdab97a490a4322845e83bd3192160548f241de03296bfc2 -->
 
 # gdam website
 
 Static Astro website for [gdam](https://github.com/aviorstudio/gdam).
 
-Install the [komizo release](https://github.com/nicodes/komizo#install) matching `komizo.lock`, then run:
+Install [mise](https://mise.jdx.dev/) and run `mise install`, then run:
 
 ```sh
-komizo dev                 # Foreground development server
-komizo check               # Frozen dependencies, build and static output checks
-komizo run build           # Generate dist/
-komizo describe            # Show locked tools and available commands
+mise run dev                 # Development server
+mise run check               # Frozen dependencies, build and static output checks
+mise run build           # Generate dist/
+mise tasks ls            # Show tools and available commands
 ```
 
 Ctrl-C stops development. This static website requires no runtime credentials or `.env` file.
