@@ -1,4 +1,4 @@
-<!-- Generated from private documentation source. Do not edit directly. Source SHA256: 9449d2e4a9f4bd7b8609959f0bc720f7fce3bd14306f36d85b80598b2d4468da -->
+<!-- Generated from private documentation source. Do not edit directly. Source SHA256: c5f4f13cdf996694d7b847b38782aeabab6b6a5bf0762d37eea05066e3a00a95 -->
 
 # gdam website
 
@@ -49,3 +49,5 @@ Build commands record source and exact regular output hashes. Declared tests pro
 ## Contributor task interface
 
 Contributor tool versions and task entry points live in the native Mise configuration. Use `mise run lint` for source checks, `mise run test` for the applicable behavioral tests, and `mise run check` for the complete supported gate. `mise run clean` removes declared generated outputs while preserving source, credentials and retained data. Use `mise run dev` and `mise run stop` for this checkout's owned local session.
+
+Built exports enforce the product byte limits in `scripts/site-budget.json`: 2 MiB total, 512 KiB per file, 64 KiB gzip HTML per page and 128 KiB gzip JavaScript in aggregate. `mise run artifact-check` checks these actual output bytes alongside metadata and accessible markup. Browser acceptance covers responsive layout, images and keyboard use.
