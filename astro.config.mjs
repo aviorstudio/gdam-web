@@ -6,4 +6,4 @@ import { defineConfig } from 'astro/config';
 // so there is no framework runtime to add and nothing to hydrate. The registry
 // application is a separate app at app.gdam.dev; this is only the front door.
 // https://v5.docs.astro.build/en/reference/configuration-reference/#output
-export default defineConfig({ output: 'static' });
+export default defineConfig({ vite: { envDir: false }, output: 'static' });
